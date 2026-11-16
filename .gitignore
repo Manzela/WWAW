@@ -1,0 +1,43 @@
+# Environment and credentials (never commit keys or secrets)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*secret*
+*credentials*
+
+# Local AI / agent harness state
+.gemini/
+.claude/
+.cursor/
+.codex/
+.aider*
+.ai-memory*
+CLAUDE.local.md
+
+# OS and editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Node.js, builds, coverage, and logs
+node_modules/
+dist/
+build/
+.cache/
+coverage/
+*.log
