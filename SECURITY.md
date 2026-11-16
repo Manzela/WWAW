@@ -1,33 +1,27 @@
 # Security Policy
 
-## Security Architecture & Threat Boundaries
+## Reporting a vulnerability
 
-This project adheres to the security, privacy, and trust-boundary requirements of the [Worldwide Agentic Web MVP Specification (Profile 0.2)](https://github.com/cognizant-ai-labs/agentic-web/blob/main/docs/worldwide_agentic_web_mvp_spec.md):
+Please do not open a public issue for a security problem. Use GitHub's private vulnerability
+reporting instead: the **Security** tab of this repository, then **Report a vulnerability**.
+Include reproduction steps and the impact you observed.
 
-1. **BYOK Credential Isolation**
-   - Visitor-supplied API keys remain strictly in origin-scoped browser `localStorage` and are attached only to model inference requests targeting the user-selected LLM router.
-   - Credentials are **never** stored in `agent-manifest.json`, `*.network.json`, `links.json`, URLs, prompts, action arguments, analytics, or peer-site requests.
-   - Users must always be able to inspect and delete stored BYOK profiles in the browser UI.
+## Security requirements
 
-2. **Untrusted Peer Instructions & Origin Consent**
-   - Cross-origin peer `*.network.json` definitions are treated as **untrusted input** to the caller's inference model. Schema validation does not imply trust in a peer publisher's instructions.
-   - Before any third-party manifest fetch, peer-network resolution, or MCP discovery/invocation, the runtime identifies the destination origin and purpose and enforces explicit user consent.
-   - Cross-origin HTTP redirects are evaluated as new destinations under the same origin and consent policies.
+These are design requirements taken from the
+[MVP specification](https://github.com/cognizant-ai-labs/agentic-web/blob/e4a8727d5c6807233b8976f28494bbdac7bc1c6e/docs/worldwide_agentic_web_mvp_spec.md)
+(§3–§5). They describe what the project must do, not what is implemented. Implementation status
+is tracked in [docs/CONFORMANCE_CHECKLIST.md](docs/CONFORMANCE_CHECKLIST.md).
 
-3. **Private Context (`sly_data`) & Site Actions**
-   - Private context is separate from chat transcripts and is **deny-by-default** across agent-site boundaries. Only explicitly permitted fields may cross boundaries.
-   - Local site actions are validated against declared JSON Schemas. Write or irreversible actions require explicit user confirmation showing destination and arguments before execution.
-   - Optional coded-tool bundles (when used) are restricted to isolated Web Workers and verified against Subresource Integrity (SRI) digests when declared.
+- **Credentials.** If BYOK is offered, the visitor's key stays in their browser. It is attached only to model requests sent to the selected router, and never placed in URLs, manifests, network definitions, prompts, action arguments, traces, analytics or peer-site requests. Visitors can delete stored profiles. BYOK does not isolate the key from other JavaScript on the same origin (§4), so keep third-party scripts to a minimum and send a restrictive Content Security Policy.
+- **Untrusted peers.** Network definitions loaded from other sites are untrusted input to the model. Schema validation and sandboxing do not make them trustworthy.
+- **Consent.** Before contacting a third-party origin, the runtime names the origin and the purpose of the request and obtains the visitor's approval. A cross-origin redirect counts as a new destination.
+- **Private context.** Private-context fields cross an invocation only when explicitly named under an allow rule. Request text sent to another network is not filtered, so it must never contain names, contact details or booking codes.
+- **Writes.** The runtime, not the model, owns confirmation. The visitor sees the destination and the arguments before any write or irreversible operation.
+- **Fail closed.** Invocations that cannot be validated, resolved or authorized do not run and are never reported as successful.
 
-4. **Zero-Secret Public Repository Policy**
-   - Never commit `.env` files, API tokens, personal credentials, private keys, or local filesystem paths.
-   - Every push and pull request is automatically checked by `scripts/validate_wwaw.mjs` via GitHub Actions.
+## Repository hygiene
 
-## Reporting a Vulnerability
-
-If you discover a security vulnerability, credential-exposure risk, or spec-boundary bypass:
-
-- **Do not** disclose the issue publicly in standard GitHub issues or pull requests.
-- Use GitHub's **Private Vulnerability Reporting** ("Security" tab → "Report a vulnerability") on this repository to share reproduction steps and impact details securely with the maintainers.
-
-We aim to acknowledge reports promptly and publish fixes transparently once coordinated.
+- Never commit API keys, tokens, `.env` files, personal data or local machine paths.
+- GitHub secret scanning and push protection are enabled for this repository.
+- [`scripts/check_hygiene.mjs`](scripts/check_hygiene.mjs) runs in CI on every push and pull request. It is a safety net with a limited pattern set, not a guarantee.

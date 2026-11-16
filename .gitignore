@@ -4,8 +4,6 @@
 !.env.example
 *.pem
 *.key
-*secret*
-*credentials*
 
 # Local AI / agent harness state
 .gemini/
@@ -29,10 +27,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
-env/
-ENV/
-env.bak/
-venv.bak/
 
 # Node.js, builds, coverage, and logs
 node_modules/

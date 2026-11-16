@@ -1,26 +1,27 @@
-name: WWAW CI
+name: CI
 
 on:
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
 
 permissions:
   contents: read
 
 jobs:
-  validate:
-    name: WWAW Compliance & Hygiene
+  hygiene:
+    name: Repository hygiene
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "22"
 
-      - name: Run WWAW validator
-        run: node scripts/validate_wwaw.mjs
+      - name: Hygiene self-test
+        run: node scripts/check_hygiene.mjs --self-test
+
+      - name: Hygiene scan
+        run: node scripts/check_hygiene.mjs
