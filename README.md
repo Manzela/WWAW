@@ -1,11 +1,11 @@
-# WWAW
+# WWAW Challenge
 
-An independent entry in the [Open Agentic Web Challenge](https://cognizant-agenticweb.devpost.com/):
+**WWAW Challenge** is our team's independent entry in the [Open Agentic Web Challenge](https://cognizant-agenticweb.devpost.com/):
 an open agentic website built to the
 [Minimum Viable Specification for a Worldwide Agentic Web (MVP Profile 0.2)](https://github.com/cognizant-ai-labs/agentic-web/blob/e4a8727d5c6807233b8976f28494bbdac7bc1c6e/docs/worldwide_agentic_web_mvp_spec.md).
 
 > [!NOTE]
-> This is an independent, community-built project. It is not affiliated with or endorsed by the
+> This is an independent project built by a two-person team. "WWAW" here is only our project's short name. It is not affiliated with or endorsed by the
 > challenge sponsor, its partners, or the World Wide Agentic Web initiative. Product and
 > organization names are used only to refer to their public specifications and tools.
 
