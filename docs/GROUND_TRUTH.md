@@ -118,7 +118,7 @@ These describe the upstream reference runtime, not this repository. Source:
 | # | Topic | What the sources say | Working position |
 | --- | --- | --- | --- |
 | C1 | LLM/key configuration interface | Rules: optional. Upstream README "What" section: listed as a component of an open agentic website, with no "optional" qualifier. Spec: BYOK optional; the default router is the primary path. | The Rules prevail (§11). Build a working default inference path. Decide BYOK separately. |
-| C2 | Who pays for inference | Upstream README: "the site host does not pay for LLM calls". Spec §4: a site MAY publish a publisher-funded default router. Rules: judges get access "free of charge and without any restriction". | Open question for the organizers. A BYOK-only demo may be read as restricted access. |
+| C2 | Who pays for inference | Upstream README: "the site host does not pay for LLM calls". Spec §4: a site MAY publish a publisher-funded default router. Rules: judges get access "free of charge and without any restriction". | Open question for the organizers (tracked as OD-2 in [OPEN_DECISIONS.md](OPEN_DECISIONS.md)). A BYOK-only demo may be read as restricted access. |
 | C3 | Demo video narration | Rules: "should include the Entrant explaining". Overview: "must include … (not AI generated)". | Follow the stricter wording. |
 | C4 | Prize total | Devpost: $10,000 in cash. Initiative FAQ: "$13,000 builder event". | Consistent: $10,000 cash plus $3,000 in Otari credits ($1,500 + $750 + $500 + $250), per Rules §8. |
 | C5 | Agent `tools` field | Spec §2.1: each agent has "a list of agents or tools it may call". The official pizza example network omits `tools` on two leaf agents. | Validate with the reference tooling, not with a stricter custom reading. |

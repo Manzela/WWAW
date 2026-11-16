@@ -40,6 +40,7 @@ The specification defines three tenets:
 | Path | Purpose |
 | --- | --- |
 | [docs/GROUND_TRUTH.md](docs/GROUND_TRUTH.md) | Verified facts about the challenge and the spec, with sources, pinned versions and known conflicts |
+| [docs/OPEN_DECISIONS.md](docs/OPEN_DECISIONS.md) | Unresolved decisions that affect scope or publication |
 | [docs/CONFORMANCE_CHECKLIST.md](docs/CONFORMANCE_CHECKLIST.md) | Requirement-by-requirement target checklist with evidence-based status |
 | [scripts/check_hygiene.mjs](scripts/check_hygiene.mjs) | Blocks committed `.env` files, common credential formats, local paths and unresolved decision markers; checks JSON syntax |
 | [.github/workflows/ci.yml](.github/workflows/ci.yml) | Runs the hygiene self-test and scan on every push and pull request |
