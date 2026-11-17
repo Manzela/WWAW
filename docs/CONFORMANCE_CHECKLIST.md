@@ -1,87 +1,87 @@
 # Conformance Checklist: Worldwide Agentic Web MVP Profile 0.2
 
-This is the target checklist. **Nothing below is implemented yet.** Update a row's status only
-when there is evidence: a test, a recorded browser check, or a deployed URL. Spec references point
-to the MVP specification at upstream commit
-[`e4a8727`](https://github.com/cognizant-ai-labs/agentic-web/blob/e4a8727d5c6807233b8976f28494bbdac7bc1c6e/docs/worldwide_agentic_web_mvp_spec.md).
-See [GROUND_TRUTH.md](GROUND_TRUTH.md) for sources and known conflicts.
+This checklist tracks every requirement in the [Worldwide Agentic Web MVP Specification (Profile 0.2)](https://github.com/cognizant-ai-labs/agentic-web/blob/e4a8727d5c6807233b8976f28494bbdac7bc1c6e/docs/worldwide_agentic_web_mvp_spec.md) (pinned at upstream commit `e4a8727`) and the [Official Rules](https://cognizant-agenticweb.devpost.com/rules).
 
-Status values: `Not started` · `In progress` · `Done (evidence: …)` · `Not applicable (reason: …)`
+**Nothing below is built yet.** Only change a row's status from `Not started` to `Done` when you can link concrete evidence: an automated test, a recorded browser trace, or a deployed URL. For source citations and known specification conflicts (`C1–C9`), see [GROUND_TRUTH.md](GROUND_TRUTH.md).
 
-## A. Stage One gate (Official Rules §4 and §6)
+Allowed status values: `Not started` · `In progress` · `Done (evidence: …)` · `Not applicable (reason: …)`
+
+## A. Stage One pass/fail gate (Official Rules §4 and §6)
 
 | # | Requirement | Status |
 | --- | --- | --- |
 | A1 | A public URL serves the open agentic website over HTTPS | Not started |
 | A2 | A publicly accessible, conforming `.json` agent network definition | Not started |
-| A3 | A `runtime` file that runs the network in the browser | Not started |
-| A4 | An interface for users or agents to interact with the network | Not started |
-| A5 | The agent network interacts with the website | Not started |
-| A6 | Optional: an LLM/key configuration interface (see GROUND_TRUTH C1) | Not started |
-| A7 | Optional: calls other agentic websites and/or is callable by them | Not started |
-| A8 | Free, unrestricted judge access until 2027-01-18 17:00 PT (see GROUND_TRUTH C2) | Not started |
+| A3 | A `runtime` file that runs the network in the visitor's browser | Not started |
+| A4 | An interface where visitors or agents can interact with the network | Not started |
+| A5 | The agent network interacts with the website itself | Not started |
+| A6 | Optional: an interface for configuring LLMs and API keys (see [GROUND_TRUTH.md](GROUND_TRUTH.md) `C1`) | Not started |
+| A7 | Optional under Rules §4 (required for Spec §6 `B4–B6`): calls other agentic websites and/or is callable by them | Not started |
+| A8 | Free, unrestricted judge access until `2027-01-18 17:00 PT` (see [GROUND_TRUTH.md](GROUND_TRUTH.md) `C2` and [OPEN_DECISIONS.md](OPEN_DECISIONS.md) `OD-2`) | Not started |
 
-## B. MVP interoperability checks (spec §6)
+## B. MVP interoperability checks (Spec §6)
 
 | # | Check | Status |
 | --- | --- | --- |
-| B1 | Publish a two-agent HOCON network and a manifest from an ordinary HTTPS host | Not started |
-| B2 | Run it in a browser with the site's published default router and model; if BYOK is offered, also show the user-selected path | Not started |
-| B3 | Call an internal agent and at least one grounded capability (MCP or a registered local site action) | Not started |
-| B4 | After user approval, load an exact named network from a second origin and run it locally | Not started |
-| B5 | With a user key active, the second site never receives the key and cannot change the caller's router | Not started |
-| B6 | Private context is absent at the peer unless a named field is explicitly allowed | Not started |
-| B7 | An invalid network, a composition cycle, an over-budget request and a denied origin each stop with a visible error | Not started |
+| B1 | Publish a two-agent HOCON/JSON network and `agent-manifest.json` from an ordinary HTTPS host | Not started |
+| B2 | Run the network in a browser with the site's published default router and model; if BYOK is offered, also demonstrate the visitor-selected key path | Not started |
+| B3 | Call an internal specialist agent and at least one grounded capability (via MCP or a registered local site action) | Not started |
+| B4 | After visitor approval, load an exact named network from a second origin and run it locally in the caller's browser | Not started |
+| B5 | With a visitor BYOK key active, prove the second origin never receives the key and cannot override the caller's router | Not started |
+| B6 | Prove private context (`sly_data`) is absent at the peer unless an allow rule explicitly names the field | Not started |
+| B7 | Stop an invalid network, a composition cycle, an over-budget request, and a denied origin, each with a clear user-visible error | Not started |
 
-## C. Public files (spec §3.3, §3.4)
+## C. Public files and artifacts (Spec §3.3, §3.4)
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| C1 | `agent-manifest.json` lists each network with `name`, `front_man` and `hocon` | Not started |
-| C2 | `agent-manifest.json` includes top-site LLM router metadata and peer policy (required content, not optional) | Not started |
-| C3 | The resolved network definition is data only: no local includes, environment substitutions or publisher-only paths (§2, §2.2) | Not started |
+| C1 | `agent-manifest.json` lists each published network with `name`, `front_man`, and `hocon` | Not started |
+| C2 | `agent-manifest.json` includes top-site LLM router metadata and peer policy (required by §3.3, not optional) | Not started |
+| C3 | Each resolved `.json` network definition is pure data: no local file includes, environment substitutions, or publisher-only filesystem paths (§2, §2.2) | Not started |
 | C4 | `links.json` maps symbolic peer references to concrete network URLs | Not started |
-| C5 | Public artifacts allow cross-origin GET (CORS), and their requests carry no private credentials (§3.4) | Not started |
-| C6 | Optional coded-tool bundle: declared in the manifest, run only in an isolated Web Worker, SRI checked when a digest is supplied | Not applicable unless used |
+| C5 | Public artifacts allow cross-origin `GET` (CORS), and fetching them sends no private credentials (§3.4) | Not started |
+| C6 | Optional coded-tool bundle (`coded_tools.bundle`): declared in the manifest, executed only inside an isolated Web Worker (`connect-src 'none'`), and verified with Subresource Integrity (SRI) when a digest is present | Not applicable unless used |
+| C7 | Optional local site-actions module (`actions.module`, e.g., `./site-actions.js`) declared in `agent-manifest.json` | Not applicable unless used |
+| C8 | Optional iframe action-bridge page (`actions.bridge`, e.g., `./bridge/action-bridge.html`) declared in `agent-manifest.json` (added in upstream `63a956c`) | Not applicable unless used |
 
-## D. Runtime behavior (spec §3.1, §3.2)
-
-| # | Requirement | Status |
-| --- | --- | --- |
-| D1 | Reject a malformed network, duplicate or missing agent references, an invalid front agent and unsupported executable definitions before any model call | Not started |
-| D2 | Agent loop with streaming, tool calls, delegation, error propagation and bounded history | Not started |
-| D3 | Ask for approval before discovering or calling a third-party MCP service | Not started |
-| D4 | Local site actions: name, purpose, JSON Schema, effect, handler; validate arguments; show destination and arguments before a write or irreversible operation | Not started |
-| D5 | Report a timeout or disconnect after a write starts as an unknown outcome; never repeat such a write | Not started |
-| D6 | Finite limits on composition depth, agent invocations, remote calls, concurrency and elapsed time | Not started |
-| D7 | Peer resolution by exact network name from `<site base>/agent-manifest.json`; fail if there is no exact match | Not started |
-| D8 | Every additional peer or MCP hop repeats the origin-policy and consent checks | Not started |
-
-## E. Inference and credentials (spec §4)
+## D. Runtime execution behavior (Spec §3.1, §3.2)
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| E1 | A published default router and model run the network | Not started |
-| E2 | If BYOK is offered: the user can set the router base URL, model and credential, and delete stored profiles | Not started |
-| E3 | The key appears in no URL, manifest, network definition, prompt, action argument, trace, analytics event or peer-site request | Not started |
-| E4 | A peer inherits the caller's router; peer router metadata never overrides it | Not started |
-| E5 | A missing required key stops the model call with a clear setup error | Not started |
+| D1 | Reject malformed networks, duplicate or missing agent references, an invalid `front_man`, and unsupported executable definitions before making any model call | Not started |
+| D2 | Execute the agent loop with streaming, tool calls, internal delegation, error propagation, and bounded conversation history | Not started |
+| D3 | Obtain visitor approval before discovering or calling a third-party MCP service | Not started |
+| D4 | Register local site actions with `name`, `purpose`, JSON Schema, `effect`, and handler; validate arguments; show destination and arguments before any `write` or `irreversible` operation *(Note: stock upstream `runner.js:356` skips confirmation on `write`—requires our `OD-5` runtime patch; see [GROUND_TRUTH.md](GROUND_TRUTH.md) `C8`)* | Not started |
+| D5 | If a write times out or disconnects after starting, report its outcome as `unknown` and never repeat that write automatically | Not started |
+| D6 | Enforce finite limits on composition depth, agent invocations, remote calls, concurrency, fetch timeouts, and total elapsed time | Not started |
+| D7 | Resolve peers by exact network `name` from `<site base>/agent-manifest.json` and fail closed if there is no exact match | Not started |
+| D8 | Repeat origin-policy and visitor-consent checks on every additional peer or MCP hop | Not started |
 
-## F. Security and privacy (spec §5)
+## E. Inference and credentials (Spec §4)
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| F1 | Peer network definitions are treated as untrusted model input | Not started |
-| F2 | Consent names the destination origin and the purpose; a cross-origin redirect counts as a new destination | Not started |
-| F3 | A remembered approval is scoped to the destination origin, for the current session | Not started |
-| F4 | Private context crosses an invocation only through named fields under an allow rule | Not started |
-| F5 | MCP credentials stay separate from the LLM key and are never transferred automatically | Not started |
-| F6 | Fail closed: invocations that cannot be validated, resolved or authorized never start and are never reported as successful | Not started |
-| F7 | User-owned writes: the executed action is bound to the reviewed proposal (action, origin, arguments, request ID, receipt) | Not started |
-| F8 | SHOULD: expose the router, contacted origins, agent and tool calls, consent decisions, errors and receipts without secrets | Not started |
-| F9 | SHOULD: minimize third-party scripts and send a restrictive Content Security Policy (§4) | Not started |
+| E1 | Run the network using the site's published default router and model | Not started |
+| E2 | If BYOK is offered: let the visitor set the router base URL, model, and credential, and delete stored profiles | Not started |
+| E3 | Ensure the credential never appears in a URL, manifest, network definition, prompt, action argument, trace, analytics event, cookie, or peer-site request | Not started |
+| E4 | Run peer networks on the caller's router so peer router metadata never overrides the caller's configuration | Not started |
+| E5 | If a required credential is missing, stop before the model call with a clear setup error | Not started |
 
-## Notes
+## F. Security and privacy (Spec §5)
 
-- Upstream's reference runtime documents gaps against D4/F7 and an unbounded partner-file fetch (no timeout). See GROUND_TRUTH §7 and C8. Reusing it unchanged inherits these gaps.
-- `scripts/check_hygiene.mjs` checks repository hygiene only. It does not test anything in this checklist.
+| # | Requirement | Status |
+| --- | --- | --- |
+| F1 | Treat peer network definitions and peer responses as untrusted model input | Not started |
+| F2 | Name the destination origin and purpose in the consent prompt, and treat any cross-origin HTTP redirect as a new destination requiring consent | Not started |
+| F3 | Scope any remembered approval ("Always allow") to the exact destination origin and session | Not started |
+| F4 | Keep private context (`sly_data`) local unless a destination-scoped allow rule explicitly names the field | Not started |
+| F5 | Keep MCP credentials separate from the LLM key and never forward caller MCP headers to peers automatically | Not started |
+| F6 | Fail closed: if an invocation cannot be validated, resolved, or authorized, never start it and never report it as successful | Not started |
+| F7 | Bind every executed `write` or `irreversible` action to the user-reviewed proposal (`action`, `origin`, `arguments`, `requestId`, signed receipt) *(Note: requires patching upstream `runner.js:356` per `OD-5` / `C8`)* | Not started |
+| F8 | SHOULD: let the visitor inspect the active router, contacted origins, agent and tool calls, consent decisions, errors, and receipts without exposing secrets | Not started |
+| F9 | SHOULD: minimize third-party scripts and serve a restrictive Content Security Policy (§4) | Not started |
+
+## Notes for contributors
+
+- Upstream's reference runtime (`skills/agentify-website/runtime/` at `63a956c`) documents several gaps of its own against this checklist—most notably skipping user confirmation on `write` actions (`D4`/`F7`), omitting fetch timeouts (`D6`), truncating consent cards at 140 characters (`F2`), and mirroring keys into a loopback cookie (`E3`). See [GROUND_TRUTH.md](GROUND_TRUTH.md) §7 and `OD-5` in [OPEN_DECISIONS.md](OPEN_DECISIONS.md).
+- [`scripts/check_hygiene.mjs`](../scripts/check_hygiene.mjs) only scans the repository for leaked secrets, `.env` files, local paths, invalid JSON, and unresolved decision markers. It does not test specification conformance.

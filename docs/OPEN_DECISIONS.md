@@ -1,11 +1,13 @@
 # Open Decisions
 
-Unresolved items that affect scope or publication. Each has an owner and a trigger. Remove an
-entry once decided and record the outcome in the relevant document.
+This table tracks decisions that affect project scope, governance, or public release. Open items (`TBD`) list what they block and what has to happen next. Decided items record the choice we made and point to the matching checklist items or architecture records.
 
-| ID | Decision | Status | Blocks | Next step |
+| ID | Decision | Status | What it blocks | Next step or resolution |
 | --- | --- | --- | --- | --- |
-| OD-1 | Private contact method for Code of Conduct reports | TBD | Merging the grounding branch to `main`. `CODE_OF_CONDUCT.md` carries a marker, and CI fails on it by design. | Team picks a private channel, then replaces the marker. |
-| OD-2 | How judges get model access without restriction (site-funded default, bring-your-own-key only, or both). See [GROUND_TRUTH.md](GROUND_TRUTH.md), C2. | TBD, pending the organizers' answer | Inference design, budget, and the Stage One access requirement ([CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md), A8). | Ask in the Devpost Discussions tab, then record the reply in GROUND_TRUTH.md with a link and date. |
-| OD-3 | Repository access and credit for the second team member | TBD | Collaboration workflow and branch protection. | Add as a GitHub collaborator, then confirm how credit should appear publicly. |
-| OD-4 | Product concept | Not started | Everything after the grounding phase. | Decide against the evidence in GROUND_TRUTH.md. |
+| OD-1 | Private contact method for Code of Conduct reports | TBD | Merging `review/grounding-corrections` into `main`. [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) carries a pending marker that fails CI on `main` by design. | Pick a private team contact address and replace the marker in [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) before merging to `main`. |
+| OD-2 | How judges get unrestricted model access (publisher-funded default router, BYOK-only, or both). See [GROUND_TRUTH.md](GROUND_TRUTH.md), `C2`. | TBD (waiting on organizer reply) | Inference budget and Stage One testing access ([CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md), `A8`). | Post the question in the Devpost Discussions tab, then log the organizers' answer in [GROUND_TRUTH.md](GROUND_TRUTH.md) with a link and date. |
+| OD-3 | Repository access and public attribution for our second team member | TBD | Collaborative branch workflow and branch protection rules. | Add as a GitHub collaborator, then confirm how credit should appear publicly. |
+| OD-4 | Product concept and scope | Decided internally | Implementation slices after the grounding phase. | Grounded in [GROUND_TRUTH.md](GROUND_TRUTH.md); implementation details will ship alongside code in upcoming feature branches. |
+| OD-5 | Runtime write-confirmation and fail-closed security patching ([GROUND_TRUTH.md](GROUND_TRUTH.md) `C8`, [CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md) `D4`/`F6`/`F7`) | Decided | Conformance on `D4`, `D5`, `D6`, `F2`, `F4`, `F6`, and `F7`. | Patch our browser runtime fork so every non-read action (`write` and `irreversible`) requires explicit visitor confirmation, consent fails closed, and partner fetches enforce timeouts and redirect re-consent. |
+| OD-6 | Public HTTPS hosting and cross-origin isolation ([CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md) `A1`, `B4–B6`, `C5`, `F9`) | Decided | Public deployment and cross-origin Spec §6 checks. | Serve test origins over HTTPS with strict Content Security Policy headers and distinct RFC 6454 origins, with zero `document.cookie` storage. |
+| OD-7 | Cross-origin peer capabilities and stateful writes ([CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md) `B4`, `C6`, `C8`, `D5`) | Decided | Cross-origin peer execution and write idempotency. | Use Spec-compliant isolated Web Worker bundles (`connect-src 'none'`) and/or MCP/action bridges as needed, with idempotent write tracking so timed-out writes never retry automatically. |
