@@ -1,17 +1,26 @@
 # Environment and credentials (never commit keys or secrets)
 .env
 .env.*
+*.env
+key.env
 !.env.example
+!.env.template
+!.env.sample
 *.pem
 *.key
-*secret*
-*credentials*
+*.crt
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
 
 # Local AI / agent harness state
 .gemini/
 .claude/
 .cursor/
 .codex/
+.codeium/
+.cline/
 .aider*
 .ai-memory*
 CLAUDE.local.md
@@ -29,10 +38,6 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
-env/
-ENV/
-env.bak/
-venv.bak/
 
 # Node.js, builds, coverage, and logs
 node_modules/
